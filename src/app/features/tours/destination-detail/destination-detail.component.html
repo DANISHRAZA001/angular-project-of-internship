@@ -1,0 +1,71 @@
+<!-- Video Background -->
+<div class="video-background">
+  <video autoplay loop muted playsinline poster="/assets/pics/Fairy Meadows Hunza Tour.webp">
+    <source src="/assets/pics/background.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- Not Found -->
+<div *ngIf="notFound" style="text-align:center;padding:120px 20px;position:relative;z-index:1;">
+  <h2 style="color:#10b981;font-size:2rem;">Destination Not Found</h2>
+  <p style="color:#94a3b8;margin-top:12px;">The destination you're looking for doesn't exist.</p>
+  <a routerLink="/tours" style="display:inline-block;margin-top:24px;background:#10b981;color:#fff;padding:12px 30px;border-radius:10px;font-weight:700;text-decoration:none;">← Back to All Tours</a>
+</div>
+
+<!-- Destination Content -->
+<ng-container *ngIf="destination">
+  <!-- Hero -->
+  <section class="dest-hero">
+    <p class="breadcrumb">
+      <a routerLink="/">Home</a> &rsaquo;
+      <a routerLink="/tours">Tours</a> &rsaquo;
+      {{ destination.name }}
+    </p>
+    <h1>{{ destination.name }}</h1>
+    <p class="subtitle">{{ destination.subtitle }}</p>
+    <div class="tags">
+      <span class="tag" *ngFor="let tag of destination.tags">{{ tag }}</span>
+    </div>
+    <img class="dest-main-img" [src]="destination.img" [alt]="destination.name" />
+  </section>
+
+  <!-- Content -->
+  <div class="dest-content">
+    <!-- Info Grid -->
+    <div class="info-grid">
+      <div class="info-card" *ngFor="let info of destination.infoGrid">
+        <div class="ic-label">{{ info.label }}</div>
+        <div class="ic-value">{{ info.value }}</div>
+      </div>
+    </div>
+
+    <h2>About {{ destination.name }}</h2>
+    <p>{{ destination.description }}</p>
+    <p *ngIf="destination.description2">{{ destination.description2 }}</p>
+
+    <!-- Things To Do -->
+    <ng-container *ngIf="destination.thingsToDo">
+      <h2>Things to Do</h2>
+      <ul>
+        <li *ngFor="let item of destination.thingsToDo">{{ item }}</li>
+      </ul>
+    </ng-container>
+
+    <!-- Attractions -->
+    <ng-container *ngIf="destination.attractions">
+      <h2>Top Attractions</h2>
+      <ul>
+        <li *ngFor="let a of destination.attractions">
+          <strong>{{ a.title }}</strong> — {{ a.desc }}
+        </li>
+      </ul>
+    </ng-container>
+
+    <!-- CTA -->
+    <div class="dest-cta">
+      <h3>{{ destination.ctaTitle }}</h3>
+      <p>{{ destination.ctaText }}</p>
+      <a routerLink="/contact">Book Now</a>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,45 @@
+<!-- Video Background -->
+<div class="video-background">
+  <video autoplay loop muted playsinline poster="/assets/pics/Fairy Meadows Hunza Tour.webp">
+    <source src="/assets/pics/background.mp4" type="video/mp4">
+  </video>
+</div>
+
+<section class="tours-hero">
+  <h1>Confirm Payment</h1>
+  <p>Submit your transaction ID to confirm your booking with us.</p>
+</section>
+
+<section class="tours-section">
+  <div style="max-width:500px;margin:0 auto;">
+    <!-- Success -->
+    <div *ngIf="submitted" style="text-align:center;padding:60px 20px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:16px;">
+      <div style="font-size:4rem">✅</div>
+      <h3 style="color:#10b981;margin-top:16px;font-size:1.5rem;">Payment Confirmed!</h3>
+      <p style="color:#94a3b8;margin-top:10px;">Transaction ID: <strong style="color:#fff">{{ transactionId }}</strong></p>
+      <p style="color:#94a3b8;margin-top:8px;">We'll verify your payment and contact you shortly.</p>
+    </div>
+
+    <!-- Form -->
+    <ng-container *ngIf="!submitted">
+      <div style="background:rgba(15,23,42,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:40px;">
+        <h3 style="color:#fff;font-size:1.2rem;margin-bottom:24px;">Enter Payment Details</h3>
+        <form (submit)="onSubmit($event)">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" [(ngModel)]="name" name="name" required placeholder="Name on booking" />
+          </div>
+          <div class="form-group">
+            <label>Transaction ID *</label>
+            <input type="text" [(ngModel)]="transactionId" name="transactionId" required placeholder="e.g. TXN-1234567890" />
+          </div>
+          <div class="form-group">
+            <label>Amount Paid (₨) *</label>
+            <input type="text" [(ngModel)]="amount" name="amount" required placeholder="e.g. 15500" />
+          </div>
+          <button type="submit" class="btn-submit">Confirm Payment</button>
+        </form>
+      </div>
+    </ng-container>
+  </div>
+</section>

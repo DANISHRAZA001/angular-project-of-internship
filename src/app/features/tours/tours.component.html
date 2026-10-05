@@ -1,0 +1,30 @@
+<!-- Video Background -->
+<div class="video-background">
+  <video autoplay loop muted playsinline poster="/assets/pics/Fairy Meadows Hunza Tour.webp">
+    <source src="/assets/pics/background.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- Hero -->
+<section class="tours-hero">
+  <h1>Explore Pakistan's Destinations</h1>
+  <p>From the towering peaks of Karakoram to the lush valleys of Swat — discover 12 breathtaking destinations
+    hand-picked for unforgettable road trips.</p>
+</section>
+
+<!-- Destinations Grid -->
+<section class="tours-section">
+  <div class="tours-grid">
+    <div class="tour-card" *ngFor="let dest of destinationCards">
+      <img class="tour-card-img" [src]="dest.img" [alt]="dest.name" />
+      <div class="tour-card-body">
+        <h3>{{ dest.name }}</h3>
+        <div class="tour-card-meta">
+          <span class="meta-tag" *ngFor="let tag of dest.tags">{{ tag }}</span>
+        </div>
+        <p>{{ dest.desc }}</p>
+        <a class="btn-explore" [routerLink]="['/tours', dest.slug]">Explore Tours</a>
+      </div>
+    </div>
+  </div>
+</section>

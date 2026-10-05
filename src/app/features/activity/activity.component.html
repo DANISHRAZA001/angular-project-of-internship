@@ -1,0 +1,26 @@
+<!-- Video Background -->
+<div class="video-background">
+  <video autoplay loop muted playsinline poster="/assets/pics/Fairy Meadows Hunza Tour.webp">
+    <source src="/assets/pics/background.mp4" type="video/mp4">
+  </video>
+</div>
+
+<section class="main">
+  <h1>Activities offered in tour</h1>
+  <h2 style="text-align:center;color:#fbbf24;margin-top:30px;">Activities in Northern Pakistan</h2>
+</section>
+
+<div class="cards">
+  <div class="card" *ngFor="let act of activities">
+    <div class="card-inner">
+      <div class="card-front" [style.backgroundImage]="'url(' + act.img + ')'"
+           style="background-size:cover;">
+      </div>
+      <div class="card-back">
+        <h3>{{ act.name }}</h3>
+        <p>{{ act.locations }}</p>
+        <p>{{ act.detail }}</p>
+      </div>
+    </div>
+  </div>
+</div>

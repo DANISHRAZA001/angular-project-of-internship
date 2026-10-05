@@ -1,0 +1,85 @@
+<!-- Video Background -->
+<div class="video-background">
+  <video autoplay loop muted playsinline poster="/assets/pics/Fairy Meadows Hunza Tour.webp">
+    <source src="assets/pics/background.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- Hero Section -->
+<section class="hero">
+  <h2>Best Vacation Packages</h2>
+  <div style="position:relative; max-width:800px; width:100%;">
+    <form (submit)="onSearch($event)">
+      <input type="text" [(ngModel)]="searchQuery" name="searchQuery" placeholder="Where are you going?"
+        autocomplete="off" />
+      <input type="date" [(ngModel)]="searchDate" name="searchDate" />
+      <select [(ngModel)]="searchPersons" name="searchPersons">
+        <option>1 Person</option>
+        <option>2 Persons</option>
+        <option>3 Persons</option>
+        <option>4 Persons</option>
+        <option>5+ Persons</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+
+    <!-- Search Results Panel -->
+    <div id="search-results" [class.visible]="showResults">
+      <div class="sr-header">
+        <h3>
+          <ng-container *ngIf="searchResults.length > 0">
+            {{ searchResults.length }} result{{ searchResults.length > 1 ? 's' : '' }} for "{{ searchQuery }}"
+          </ng-container>
+          <ng-container *ngIf="searchSubmitted && searchResults.length === 0">
+            No results for "{{ searchQuery }}"
+          </ng-container>
+        </h3>
+        <button class="sr-close" (click)="closeResults()" aria-label="Close results">&times;</button>
+      </div>
+      <div class="sr-grid">
+        <!-- Results -->
+        <a *ngFor="let t of searchResults" class="sr-card" [routerLink]="['/tours', t.slug]" (click)="closeResults()">
+          <div class="sr-card-img" [style.backgroundImage]="'url(\'' + t.img + '\')'">
+            <span class="sr-badge">{{ t.type }}</span>
+          </div>
+          <div class="sr-card-body">
+            <h4>{{ t.name }}</h4>
+            <p>{{ t.duration }}</p>
+          </div>
+        </a>
+        <!-- No Results -->
+        <div *ngIf="searchSubmitted && searchResults.length === 0" class="sr-no-results" style="grid-column:1/-1">
+          <div class="sr-icon">🔍</div>
+          <p>No tours found for <span>"{{ searchQuery }}"</span>.</p>
+          <p style="margin-top:8px;font-size:0.85rem">Try: Hunza, Skardu, Swat, Fairy Meadows…</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Tours Section -->
+<section class="featured">
+  <h2>Discover Weekly</h2>
+  <div class="cards">
+    <div class="card" *ngFor="let card of featuredCards">
+      <div class="card-inner">
+        <div class="card-front" [style.backgroundImage]="'url(\'' + card.img + '\')'" style="background-size:cover;">
+        </div>
+        <div class="card-back">
+          <h3>{{ card.name }}</h3>
+          <p>{{ card.duration }}</p>
+          <p>{{ card.price }}</p>
+          <button [routerLink]="['/packages']">Explore</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about">
+  <h2>Welcome to Pakistan Road Trips</h2>
+  <p class="random">Your premier tour agency in Pakistan. We offer tailored packages, experienced guides, and
+    breathtaking adventures across the country.</p>
+</section>

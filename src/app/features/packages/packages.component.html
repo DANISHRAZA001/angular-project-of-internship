@@ -1,0 +1,88 @@
+<!-- Video Background -->
+<div class="video-background">
+  <video autoplay loop muted playsinline poster="/assets/pics/Fairy Meadows Hunza Tour.webp">
+    <source src="/assets/pics/background.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- Hero -->
+<section class="tours-hero">
+  <h1>Tour Packages</h1>
+  <p>Choose from our expertly crafted Pakistan tour packages — all-inclusive adventures for every budget and season.</p>
+</section>
+
+<!-- Packages Grid -->
+<section class="tours-section">
+  <div class="tours-grid">
+    <div class="tour-card" *ngFor="let pkg of packages">
+      <img class="tour-card-img" [src]="pkg.img" [alt]="pkg.name" />
+      <div class="tour-card-body">
+        <h3>{{ pkg.name }}</h3>
+        <div class="tour-card-meta">
+          <span class="meta-tag">{{ pkg.duration }}</span>
+          <span class="meta-tag">{{ pkg.category }}</span>
+        </div>
+        <ul style="margin: 0 0 16px; padding-left:20px; color:#94a3b8; font-size:0.88rem;">
+          <li *ngFor="let hl of pkg.highlights">{{ hl }}</li>
+        </ul>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;">
+          <span style="font-size:1.2rem;font-weight:700;color:#10b981;">{{ pkg.price }}<span style="font-size:0.75rem;color:#94a3b8;">/person</span></span>
+          <button class="btn-book" (click)="openBooking(pkg)">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Booking Modal -->
+<div class="booking-overlay" [class.active]="showModal" (click)="$event.target === $event.currentTarget && closeModal()">
+  <div class="booking-modal" *ngIf="selectedPackage">
+    <button class="modal-close" (click)="closeModal()">&times;</button>
+
+    <!-- Success State -->
+    <div *ngIf="bookingSuccess" style="text-align:center;padding:30px 0;">
+      <div style="font-size:3rem;">✅</div>
+      <h3 style="color:#10b981;margin-top:12px;">Your Booking Has Been Confirmed!</h3>
+      <p style="color:#94a3b8;margin-top:8px;">Your <strong>{{ selectedPackage.name }}</strong> booking is confirmed. Please proceed to make the payment to secure your spot.</p>
+      <a routerLink="/payment" style="display:inline-block;margin-top:18px;background:#10b981;color:#fff;padding:12px 30px;border-radius:10px;font-weight:700;text-decoration:none;transition:background 0.2s;">Make Payment →</a>
+    </div>
+
+    <!-- Booking Form -->
+    <ng-container *ngIf="!bookingSuccess">
+      <h2 class="modal-title">Book: {{ selectedPackage.name }}</h2>
+      <p class="modal-sub">{{ selectedPackage.duration }} &nbsp;|&nbsp; {{ selectedPackage.price }}/person</p>
+
+      <form (ngSubmit)="submitBooking()">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" [(ngModel)]="bookingName" name="bookingName" required placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" [(ngModel)]="bookingEmail" name="bookingEmail" required placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Phone / WhatsApp *</label>
+          <input type="tel" [(ngModel)]="bookingPhone" name="bookingPhone" required placeholder="+92 300 0000000" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Travel Date</label>
+            <input type="date" [(ngModel)]="bookingDate" name="bookingDate" />
+          </div>
+          <div class="form-group">
+            <label>Persons</label>
+            <input type="number" [(ngModel)]="bookingPersons" name="bookingPersons" min="1" max="50" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Special Requests</label>
+          <textarea [(ngModel)]="bookingNotes" name="bookingNotes" rows="3" placeholder="Any special requirements, pickup city, etc."></textarea>
+        </div>
+        <button type="submit" class="btn-submit" [disabled]="submitting">
+          {{ submitting ? 'Sending...' : 'Send Booking Request' }}
+        </button>
+      </form>
+    </ng-container>
+  </div>
+</div>

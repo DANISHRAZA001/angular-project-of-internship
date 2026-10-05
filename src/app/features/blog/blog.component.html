@@ -1,0 +1,28 @@
+<!-- Video Background -->
+<div class="video-background">
+  <video autoplay loop muted playsinline poster="/assets/pics/Fairy Meadows Hunza Tour.webp">
+    <source src="/assets/pics/background.mp4" type="video/mp4">
+  </video>
+</div>
+
+<section class="tours-hero">
+  <h1>Blog</h1>
+  <p>Travel tips, destination guides, and adventure stories from the road.</p>
+</section>
+
+<section class="tours-section">
+  <div style="max-width:900px;margin:0 auto;">
+    <div class="blog-post" *ngFor="let post of posts">
+      <img [src]="post.img" [alt]="post.title" class="blog-img" />
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="meta-tag">{{ post.category }}</span>
+          <span style="color:#64748b;font-size:0.85rem;margin-left:10px;">{{ post.date }}</span>
+        </div>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.excerpt }}</p>
+        <a href="#" class="btn-explore" style="display:inline-block;margin-top:12px;">Read More →</a>
+      </div>
+    </div>
+  </div>
+</section>

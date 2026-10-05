@@ -1,0 +1,34 @@
+<header>
+  <div class="top-bar">
+    <span>pakistan.road.trip1&#64;gmail.com | 03199819952</span>
+  </div>
+  <nav class="navbar">
+    <h1><a routerLink="/">Pakistan Road Trips</a></h1>
+
+    <!-- Hamburger -->
+    <div class="menu-toggle" [class.active]="menuOpen" (click)="toggleMenu()">
+      <span></span>
+    </div>
+
+    <!-- Nav Links -->
+    <ul class="nav-links" [class.active]="menuOpen">
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeMenu()">Home</a></li>
+      <li><a routerLink="/activity" routerLinkActive="active" (click)="closeMenu()">Activity</a></li>
+
+      <!-- Tours Dropdown -->
+      <li class="has-dropdown">
+        <a routerLink="/tours" routerLinkActive="active" (click)="closeMenu()">Tours</a>
+        <div class="dropdown">
+          <a *ngFor="let dest of destinations" [routerLink]="['/tours', dest.slug]" (click)="closeMenu()">
+            <span class="dd-img">{{ dest.emoji }}</span>{{ dest.label }}
+          </a>
+        </div>
+      </li>
+
+      <li><a routerLink="/packages" routerLinkActive="active" (click)="closeMenu()">Tour Packages</a></li>
+      <li><a routerLink="/blog" routerLinkActive="active" (click)="closeMenu()">Blog</a></li>
+      <li><a routerLink="/payment" routerLinkActive="active" (click)="closeMenu()">Confirm Payment</a></li>
+      <li><a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
